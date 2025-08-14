@@ -4,7 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Cepheid Visualizer — Audio Reactive Visualizer</title>
-  <link rel="stylesheet" href="style.css?v=2">
+  <!-- cache-bust CSS -->
+  <link rel="stylesheet" href="style.css?v=3" />
 </head>
 <body>
   <header class="site-header">
@@ -28,7 +29,14 @@
         </p>
 
         <div class="controls">
-          <a class="btn primary" id="download-zip" href="https://github.com/Mitsune1024/Cepheid-Visualizer/archive/refs/heads/main.zip" target="_blank" rel="noopener">Download ZIP</a>
+          <!-- Auto-detect button -->
+          <a class="btn primary" id="download-auto" href="#" onclick="return false;">Download for your OS</a>
+
+          <!-- Manual direct links to release assets -->
+          <a class="btn primary" id="download-win" href="https://github.com/Mitsune1024/Cepheid-Visualizer/releases/download/v0.1.1308Win/Cepheid_windows-amd64.rar" target="_blank" rel="noopener">Download for Windows</a>
+          <a class="btn outline" id="download-linux" href="https://github.com/Mitsune1024/Cepheid-Visualizer/releases/download/v0.1.1308Linux/Cepheid_linux-amd64.rar" target="_blank" rel="noopener">Download for Linux</a>
+
+          <!-- GitHub repo -->
           <a class="btn outline" id="view-github" href="https://github.com/Mitsune1024/Cepheid-Visualizer" target="_blank" rel="noopener">View on GitHub</a>
         </div>
 
@@ -36,15 +44,16 @@
           <div>
             <h4>Quick start</h4>
             <ol>
-              <li>Open the sketch folder in Processing.</li>
-              <li>Install the Processing sound library if you do not have it.</li>
-              <li>Run the sketch. Use keys 1 and 2 to switch modes. Move mouse to move the black hole.</li>
+              <li>Download the appropriate package for your OS (Windows / Linux).</li>
+              <li>Extract the archive and run the executable. If the package is a RAR, use an extractor that supports RAR.</li>
+              <li>On Linux: after extracting, ensure the executable has permissions: <code>chmod +x CepheidVisualizer</code>, then run <code>./CepheidVisualizer</code>.</li>
+              <li>If you want the Processing source, open the sketch folder in Processing and run there.</li>
             </ol>
           </div>
           <div>
             <h4>Files included</h4>
             <ul>
-              <li>GenerationsCombined.pde</li>
+              <li>GenerationsCombined.pde (Processing sketch)</li>
               <li>MiniSphere.pde</li>
               <li>data/pbr.vert.glsl</li>
               <li>data/pbr.frag.glsl</li>
@@ -57,15 +66,16 @@
         <div class="notes">
           <strong>Notes</strong>
           <p>
-            This site is a static companion to the code. If you change the repository name or username, update the buttons above.
+            This site links directly to the release assets. If you change or re-upload files to Releases, update the URLs here.
           </p>
         </div>
       </div>
 
       <aside class="hero-right">
         <div class="card preview">
+          <!-- Replace demo.gif with your file in assets/ or change to ss.png if you didn't upload the GIF -->
           <img src="assets/ss.png" alt="Project screenshot" class="preview-img" />
-          <div class="caption">Example frame. Replace with your own screenshot or animated GIF.</div>
+          <div class="caption">Animated demo. Replace this file with your own GIF (assets/demo.gif) or screenshot.</div>
         </div>
 
         <div class="card meta">
@@ -84,14 +94,12 @@
     <section class="tech">
       <h3>Technical details</h3>
       <p>
-        The sketch uses Processing with the sound library and several GLSL shaders. The heavy visual work is done in
-        fragment shaders so the CPU work remains minimal. The black hole effect is a screen-space distortion that
-        simulates lensing and a glowing accretion ring.
+        The sketch uses Processing with the sound library and several GLSL shaders. Heavy visual work is done in fragment shaders so CPU load is minimal. The black hole effect is a screen-space distortion that simulates lensing and a glowing accretion ring.
       </p>
 
       <h4>Dependencies</h4>
       <ul>
-        <li>Processing 3.5 or later</li>
+        <li>Processing 3.5 or later (for source)</li>
         <li>processing.sound library</li>
       </ul>
     </section>
@@ -102,5 +110,45 @@
       <p>Made by Mitsune The Maid. Code released under MIT license. Hosted on GitHub Pages.</p>
     </div>
   </footer>
+
+  <script>
+    // Direct asset URLs (from your releases)
+    const WIN_URL = "https://github.com/Mitsune1024/Cepheid-Visualizer/releases/download/v0.1.1308Win/Cepheid_windows-amd64.rar";
+    const LINUX_URL = "https://github.com/Mitsune1024/Cepheid-Visualizer/releases/download/v0.1.1308Linux/Cepheid_linux-amd64.rar";
+
+    // Simple OS detection
+    function detectOS() {
+      const p = navigator.platform || navigator.userAgent || navigator.appVersion;
+      const pstr = p.toLowerCase();
+      if (pstr.indexOf('win') !== -1) return 'windows';
+      if (pstr.indexOf('linux') !== -1) return 'linux';
+      if (pstr.indexOf('mac') !== -1 || pstr.indexOf('darwin') !== -1 || pstr.indexOf('iphone') !== -1 || pstr.indexOf('ipad') !== -1) return 'mac';
+      return 'unknown';
+    }
+
+    function setAutoDownloadLink() {
+      const os = detectOS();
+      const autoBtn = document.getElementById('download-auto');
+      if (!autoBtn) return;
+
+      if (os === 'windows') {
+        autoBtn.href = WIN_URL;
+        autoBtn.onclick = null;
+        autoBtn.setAttribute('target','_blank');
+      } else if (os === 'linux') {
+        autoBtn.href = LINUX_URL;
+        autoBtn.onclick = null;
+        autoBtn.setAttribute('target','_blank');
+      } else {
+        // default to GitHub repo page for other systems (mac or unknown)
+        autoBtn.href = "https://github.com/Mitsune1024/Cepheid-Visualizer";
+        autoBtn.onclick = null;
+        autoBtn.setAttribute('target','_blank');
+      }
+    }
+
+    // Run on load
+    document.addEventListener('DOMContentLoaded', setAutoDownloadLink);
+  </script>
 </body>
 </html>
