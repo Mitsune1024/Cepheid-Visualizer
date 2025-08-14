@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cepheid Visualizer — Audio Reactive Visualizer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <h1 class="title">Cepheid Visualizer</h1>
+      <nav class="nav">
+        <a class="nav-link" href="index.html">Project</a>
+        <a class="nav-link" href="about.html">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container main">
+    <section class="hero">
+      <div class="hero-left">
+        <h2 class="subtitle">Audio reactive visuals in Processing</h2>
+        <p class="lead">
+          Cepheid Visualizer is a Processing sketch combining two audio reactive modes. Mode 0 is a PBR scene with bloom and
+          mini spheres that react to sound. Mode 1 is a lightweight black hole visualization with six audio-driven rays
+          and a screen-space distortion shader.
+        </p>
+
+        <div class="controls">
+          <a class="btn primary" id="download-zip" href="https://github.com/Mitsune1024/Cepheid-Visualizer/archive/refs/heads/main.zip" target="_blank" rel="noopener">Download ZIP</a>
+          <a class="btn outline" id="view-github" href="https://github.com/Mitsune1024/Cepheid-Visualizer" target="_blank" rel="noopener">View on GitHub</a>
+        </div>
+
+        <div class="info-grid">
+          <div>
+            <h4>Quick start</h4>
+            <ol>
+              <li>Open the sketch folder in Processing.</li>
+              <li>Install the Processing sound library if you do not have it.</li>
+              <li>Run the sketch. Use keys 1 and 2 to switch modes. Move mouse to move the black hole.</li>
+            </ol>
+          </div>
+          <div>
+            <h4>Files included</h4>
+            <ul>
+              <li>GenerationsCombined.pde</li>
+              <li>MiniSphere.pde</li>
+              <li>data/pbr.vert.glsl</li>
+              <li>data/pbr.frag.glsl</li>
+              <li>data/generations.frag</li>
+              <li>data/glowFrag.glsl</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="notes">
+          <strong>Notes</strong>
+          <p>
+            This site is a static companion to the code. If you change the repository name or username, update the buttons above.
+          </p>
+        </div>
+      </div>
+
+      <aside class="hero-right">
+        <div class="card preview">
+          <img src="assets/screenshot.png" alt="Project screenshot or GIF" class="preview-img" />
+          <div class="caption">Example frame. Replace with your own screenshot or animated GIF.</div>
+        </div>
+
+        <div class="card meta">
+          <h4>Controls</h4>
+          <ul>
+            <li>1: Mode 0 PBR</li>
+            <li>2: Mode 1 Black hole</li>
+            <li>Mouse: Move black hole</li>
+            <li>+ / - or arrows: change black hole radius</li>
+            <li>f: toggle FFT mode</li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+
+    <section class="tech">
+      <h3>Technical details</h3>
+      <p>
+        The sketch uses Processing with the sound library and several GLSL shaders. The heavy visual work is done in
+        fragment shaders so the CPU work remains minimal. The black hole effect is a screen-space distortion that
+        simulates lensing and a glowing accretion ring.
+      </p>
+
+      <h4>Dependencies</h4>
+      <ul>
+        <li>Processing 3.5 or later</li>
+        <li>processing.sound library</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Made by Mitsune The Maid. Code released under MIT license. Hosted on GitHub Pages.</p>
+    </div>
+  </footer>
+</body>
+</html>
