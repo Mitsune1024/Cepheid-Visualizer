@@ -23,9 +23,10 @@
       <div class="hero-left">
         <h2 class="subtitle">Audio reactive visuals in Processing</h2>
         <p class="lead">
-          Cepheid Visualizer is a Processing sketch combining two audio reactive modes. Mode 0 is a PBR scene with bloom and
-          mini spheres that react to sound. Mode 1 is a lightweight black hole visualization with six audio-driven rays
-          and a screen-space distortion shader.
+          This repository contains a Processing sketch that produces multiple audio-reactive visual modes.
+          Mode 0 is a shader-driven sphere with bloom and audio tinting. Modes 1 through 8 are lightweight
+          CPU/GPU visuals driven by the processing.sound FFT and amplitude envelope. The visuals were designed
+          to be efficient and to run on lower-power hardware after further optimisation.
         </p>
 
         <div class="controls">
@@ -44,29 +45,28 @@
           <div>
             <h4>Quick start</h4>
             <ol>
-              <li>Download the appropriate package for your OS (Windows / Linux).</li>
-              <li>Extract the archive and run the executable. If the package is a RAR, use an extractor that supports RAR.</li>
-              <li>On Linux: after extracting, ensure the executable has permissions: <code>chmod +x CepheidVisualizer</code>, then run <code>./CepheidVisualizer</code>.</li>
-              <li>If you want the Processing source, open the sketch folder in Processing and run there.</li>
+              <li>Download the appropriate package for your OS (Windows or Linux) or clone the repository.</li>
+              <li>Extract the archive and run the executable for your platform. For RAR archives use an extractor that supports RAR.</li>
+              <li>On Linux: after extracting, ensure the executable has permissions, for example <code>chmod +x CepheidVisualizer</code>, then run <code>./CepheidVisualizer</code>.</li>
+              <li>If you prefer to run or edit the source, open the sketch folder in Processing and run there. The sketch uses the processing.sound library.</li>
             </ol>
           </div>
           <div>
             <h4>Files included</h4>
             <ul>
-              <li>GenerationsCombined.pde (Processing sketch)</li>
-              <li>MiniSphere.pde</li>
-              <li>data/pbr.vert.glsl</li>
-              <li>data/pbr.frag.glsl</li>
-              <li>data/generations.frag</li>
-              <li>data/glowFrag.glsl</li>
+              <li>GenerationsCombined.pde (Processing sketch, main)</li>
+              <li>data/mode0.frag (mode 0 fragment shader)</li>
+              <li>data/glowFrag.glsl (blur / glow shader)</li>
+              <li>data/* (other optional shaders you may include)</li>
             </ul>
+            <p class="small">Note: the older MiniSphere.pde file was removed and its visuals were consolidated into the main sketch.</p>
           </div>
         </div>
 
         <div class="notes">
           <strong>Notes</strong>
           <p>
-            This site links directly to the release assets. If you change or re-upload files to Releases, update the URLs here.
+            Release asset URLs are linked above. If you upload new release artifacts, update the links in this page or in the script below.
           </p>
         </div>
       </div>
@@ -75,17 +75,17 @@
         <div class="card preview">
           <!-- Replace demo.gif with your file in assets/ or change to ss.png if you didn't upload the GIF -->
           <img src="assets/ss.png" alt="Project screenshot" class="preview-img" />
-          <div class="caption">Animated demo. Replace this file with your own GIF (assets/demo.gif) or screenshot.</div>
+          <div class="caption">Animated demo or screenshot. Replace this file with your own GIF or PNG in assets/</div>
         </div>
 
         <div class="card meta">
           <h4>Controls</h4>
           <ul>
-            <li>1: Mode 0 PBR</li>
-            <li>2: Mode 1 Black hole</li>
-            <li>Mouse: Move black hole</li>
-            <li>+ / - or arrows: change black hole radius</li>
-            <li>f: toggle FFT mode</li>
+            <li>0..8 : switch visual mode (0 is sphere, 1 is cubes, 2 helix, 3 rosette, 4 star, 5 rings, 6 grid stars, 7 ship arms, 8 flower)</li>
+            <li>+ / - : adjust persistence decay (smaller value gives longer trails)</li>
+            <li>Arrow keys : rotate camera and dolly (left/right rotate, up/down change distance)</li>
+            <li>f : toggle FFT processing on or off</li>
+            <li>h : show help in the console</li>
           </ul>
         </div>
       </aside>
@@ -94,12 +94,15 @@
     <section class="tech">
       <h3>Technical details</h3>
       <p>
-        The sketch uses Processing with the sound library and several GLSL shaders. Heavy visual work is done in fragment shaders so CPU load is minimal. The black hole effect is a screen-space distortion that simulates lensing and a glowing accretion ring.
+        The sketch uses Processing with the processing.sound library and a few GLSL fragment shaders.
+        Most visuals are implemented with simple CPU geometry combined with an accumulation framebuffer
+        to produce glow and trail persistence. The FFT array is mapped to parameter ranges per mode
+        to obtain musical responsiveness.
       </p>
 
       <h4>Dependencies</h4>
       <ul>
-        <li>Processing 3.5 or later (for source)</li>
+        <li>Processing 3.5 or later (for running the source)</li>
         <li>processing.sound library</li>
       </ul>
     </section>
@@ -140,7 +143,6 @@
         autoBtn.onclick = null;
         autoBtn.setAttribute('target','_blank');
       } else {
-        // default to GitHub repo page for other systems (mac or unknown)
         autoBtn.href = "https://github.com/Mitsune1024/Cepheid-Visualizer";
         autoBtn.onclick = null;
         autoBtn.setAttribute('target','_blank');
