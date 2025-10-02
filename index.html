@@ -14,7 +14,6 @@
       <nav class="nav">
         <a class="nav-link" href="about.html" data-i18n="nav_about">About</a>
         <a class="nav-link" href="#download" data-i18n="nav_download">Download</a>
-        <!-- Language toggle -->
         <button id="langToggle" class="nav-link" aria-label="Toggle language">ES</button>
       </nav>
     </div>
@@ -37,7 +36,7 @@
                 <ul>
                   <li data-i18n="feat_modes">6 visualization modes (keyboard control)</li>
                   <li data-i18n="feat_audio">Audio-reactive (FFT spectrum + RMS loudness)</li>
-                  <li data-i18n="feat_bloom">Bloom and smooth trails</li>
+                  <li data-i18n="feat_bloom">Bloom and persistence trails</li>
                   <li data-i18n="feat_morph">Dynamic morphing in advanced modes</li>
                 </ul>
               </div>
@@ -45,7 +44,7 @@
               <div>
                 <h4 data-i18n="meta_quick">Quick start</h4>
                 <ol>
-                  <li data-i18n="qs_download">Download and run the exported application for your OS (no Processing needed)</li>
+                  <li data-i18n="qs_download">Download and run the exported application (no Processing needed)</li>
                   <li data-i18n="qs_mic">Allow microphone access if requested — the app is audio-driven</li>
                   <li data-i18n="qs_modes">Switch visual modes with keys <code>0–5</code></li>
                 </ol>
@@ -69,9 +68,20 @@
           <div class="tech" style="margin-top:16px">
             <a id="download" class="btn primary" href="https://github.com/Mitsune1024/Cepheid-Visualizer/releases/download/v0.9.1001Windows/Cepheid-windows-amd64.rar" data-i18n="dl_windows">Download Windows</a>
             <a class="btn outline" href="https://github.com/Mitsune1024/Cepheid-Visualizer/releases/download/v0.9.1001Linux/Cepheid-linux-amd64.rar" data-i18n="dl_linux">Download Linux</a>
-            <p class="caption" style="margin-top:10px" data-i18n="caption_placeholder">Demo / preview: upload a GIF or short MP4 to replace this placeholder.</p>
-            <div class="preview-img card" id="demoPlaceholder" style="height:220px;display:flex;align-items:center;justify-content:center;">
-              <span class="small" data-i18n="demo_placeholder">Demo placeholder — upload a short GIF or MP4</span>
+            <p class="caption" style="margin-top:10px" data-i18n="caption_placeholder">Demo / preview.</p>
+
+            <!-- YouTube embed preview (starts at 8s) -->
+            <div class="preview-img card" style="margin-top:10px; padding:0; overflow:hidden; border-radius:8px;">
+              <iframe
+                width="100%"
+                height="360"
+                src="https://www.youtube-nocookie.com/embed/_iFKAHYc3CA?start=8&rel=0&modestbranding=1&autoplay=1&mute=1&loop=1&playlist=_iFKAHYc3CA"
+                title="Cepheid Visualizer demo"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                style="display:block; border:0;">
+              </iframe>
             </div>
 
             <div class="small meta" style="margin-top:12px">
@@ -89,7 +99,7 @@
 
       <aside class="hero-right">
         <div class="card">
-          <img src="Whir.png" alt="Mitsune The Maid" class="preview-img" />
+          <img src="assets/Whir.png" alt="Mitsune The Maid" class="preview-img" />
           <p class="caption small" style="margin-top:10px">
             <strong data-i18n="credits_title">Made by</strong>
             <br />
@@ -124,7 +134,6 @@
   </main>
 
   <script>
-    // Simple i18n switch (English default). Toggle button shows the opposite language abbreviation.
     const translations = {
       en: {
         nav_about: "About",
@@ -144,8 +153,7 @@
         controls_note: "Note: modes 7 and 8 are not exposed in the public build.",
         dl_windows: "Download Windows",
         dl_linux: "Download Linux",
-        caption_placeholder: "Demo / preview: upload a GIF or short MP4 to replace this placeholder.",
-        demo_placeholder: "Demo placeholder — upload a short GIF or MP4",
+        caption_placeholder: "Demo / preview.",
         sysreq_title: "Minimum system",
         sysreq_cpu: "CPU: Pentium 987 (or similar)",
         sysreq_gpu: "Graphics: Intel® HD Graphics (Sandy Bridge) or AMD equivalent (e.g. AMD A8/A10 era)",
@@ -173,8 +181,7 @@
         controls_note: "Nota: los modos 7 y 8 no están expuestos en la versión pública.",
         dl_windows: "Descargar Windows",
         dl_linux: "Descargar Linux",
-        caption_placeholder: "Demo / vista previa: sube un GIF o MP4 corto para reemplazar este espacio.",
-        demo_placeholder: "Placeholder de demo — sube un GIF o MP4 corto",
+        caption_placeholder: "Demo / vista previa.",
         sysreq_title: "Sistema mínimo",
         sysreq_cpu: "CPU: Pentium 987 (o similar)",
         sysreq_gpu: "Gráficos: Intel® HD Graphics (Sandy Bridge) o equivalente AMD (p. ej. A8/A10)",
@@ -203,7 +210,6 @@
       });
     }
 
-    // apply default
     applyLanguage('en');
   </script>
 </body>
