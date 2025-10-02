@@ -4,66 +4,179 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>About — Cepheid Visualizer</title>
-  <link rel="stylesheet" href="style.css?v=20250723" />
+  <link rel="stylesheet" href="style.css" />
   <meta name="description" content="About the author and goals of the Cepheid Visualizer project." />
+  <style>
+    /* Page-specific background for about.html only */
+    body {
+      background: url("assets/bg2.png") no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    /* subtle overlay so text is readable on busy backgrounds */
+    .page-overlay {
+      background: rgba(0, 0, 0, 0.45);
+      min-height: 100vh;
+      padding: 28px 16px;
+      box-sizing: border-box;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 8px;
+    }
+
+    .card {
+      background: rgba(0,0,0,0.55);
+      border-radius: 10px;
+      padding: 18px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      color: #fff;
+    }
+
+    header.site-header {
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(4px);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 8px;
+    }
+
+    .title {
+      margin: 0;
+      font-size: 20px;
+      letter-spacing: 0.6px;
+    }
+
+    nav.nav a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 12px;
+      opacity: 0.95;
+      font-size: 14px;
+    }
+
+    .about-main {
+      padding: 28px 0;
+    }
+
+    .about-section {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      padding: 18px;
+    }
+
+    .about-section img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+    }
+
+    h2, h3 {
+      color: #fff;
+      margin-top: 0;
+    }
+
+    .lead {
+      margin: 0 0 12px 0;
+      line-height: 1.5;
+      color: #eaeaea;
+    }
+
+    .small {
+      color: #ddd;
+      font-size: 13px;
+    }
+
+    footer.site-footer {
+      margin-top: 28px;
+      padding: 18px 0;
+      color: #ddd;
+    }
+
+    @media (max-width: 860px) {
+      .about-section {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <h1 class="title">Cepheid Visualizer</h1>
-      <nav class="nav">
-        <a class="nav-link" href="index.html">Project</a>
-        <a class="nav-link" href="about.html">About</a>
-      </nav>
-    </div>
-  </header>
-
-  <main class="container main about-main">
-    <article class="about-section card" style="display:flex; gap:18px; align-items:flex-start; padding:18px;">
-      <div style="flex:0 0 220px">
-        <img src="assets/Whir.png" alt="Mitsune The Maid" style="width:100%; border-radius:10px; display:block" />
+  <div class="page-overlay">
+    <header class="site-header">
+      <div class="container header-inner">
+        <h1 class="title">Cepheid Visualizer</h1>
+        <nav class="nav">
+          <a class="nav-link" href="index.html">Project</a>
+          <a class="nav-link" href="about.html">About</a>
+        </nav>
       </div>
+    </header>
 
-      <div style="flex:1">
-        <h2>Why this project exists</h2>
-        <p>
-          The visualizer connects sound and visual expression in a compact Processing sketch. The project was inspired
-          by analog oscilators. This project aims to capture the aesthetic using screen-space shaders and a set of audio-reactive
-          primitives that are practical for realtime use.
-        </p>
+    <main class="container main about-main">
+      <article class="about-section card">
+        <div style="flex:0 0 220px">
+          <img src="assets/Whir.png" alt="Mitsune The Maid" />
+        </div>
 
-        <h3>Design goals</h3>
-        <ul>
-          <li>Keep the interface simple and immediate for live performance</li>
-          <li>Use GLSL where it helps reduce CPU load and to implement bloom and distortion effects</li>
-          <li>Provide clear, commented code so others can learn and modify it</li>
-        </ul>
+        <div style="flex:1">
+          <h2>Why this project exists</h2>
+          <p>
+            The visualizer connects sound and visual expression in a compact Processing sketch. The project was inspired
+            by analog oscilators. This project aims to capture the aesthetic using screen-space shaders and a set of audio-reactive
+            primitives that are practical for realtime use.
+          </p>
 
-        <h2>Who I am</h2>
-        <p>
-          I perform and compose under the name Mitsune The Maid. I make music that blends shoegaze, post-punk and electronic elements.
-          I like to integrate visuals with sound for live shows and recordings. This repository is intended both as a personal tool
-          and as a learning resource for others.
-        </p>
+          <h3>Design goals</h3>
+          <ul>
+            <li>Keep the interface simple and immediate for live performance</li>
+            <li>Use GLSL where it helps reduce CPU load and to implement bloom and distortion effects</li>
+            <li>Provide clear, commented code so others can learn and modify it</li>
+          </ul>
 
-        <h3>Links</h3>
-        <ul>
-          <li>GitHub: <a href="https://github.com/Mitsune1024/Cepheid-Visualizer" target="_blank" rel="noopener">Github</a></li>
-          <li>Project site: <a href="https://Mitsune1024.github.io/Cepheid-Visualizer" target="_blank" rel="noopener">Mitsune1024.github.io</a></li>
-          <li>Music and socials: <a href="https://linktr.ee/mitsune1024" target="_blank" rel="noopener">linktr.ee</a></li>
-        </ul>
+          <h2>Who I am</h2>
+          <p>
+            I perform and compose under the name Mitsune The Maid. I make music that blends shoegaze, post-punk and electronic elements.
+            I like to integrate visuals with sound for live shows and recordings. This repository is intended both as a personal tool
+            and as a learning resource for others.
+          </p>
 
-        <p class="small">
-          Need help uploading to GitHub or configuring Pages? Ask me or follow the steps in the repository README.
-        </p>
+          <h3>Links</h3>
+          <ul>
+            <li>GitHub: <a href="https://github.com/Mitsune1024/Cepheid-Visualizer" target="_blank" rel="noopener">Github</a></li>
+            <li>Project site: <a href="https://Mitsune1024.github.io/Cepheid-Visualizer" target="_blank" rel="noopener">Mitsune1024.github.io</a></li>
+            <li>Music and socials: <a href="https://linktr.ee/mitsune1024" target="_blank" rel="noopener">linktr.ee</a></li>
+          </ul>
+
+          <p class="small">
+            Need help uploading to GitHub or configuring Pages? Ask me or follow the steps in the repository README.
+          </p>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer container">
+      <div class="card" style="background:transparent; box-shadow:none; padding:12px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>Made by Mitsune The Maid</div>
+          <div><a href="https://Mitsune1024.github.io/Cepheid-Visualizer" style="color:#dcdcdc;">Project page</a></div>
+        </div>
       </div>
-    </article>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container">
-      <p>Made by Mitsune The Maid</p>
-    </div>
-  </footer>
+    </footer>
+  </div>
 </body>
 </html>
