@@ -4,62 +4,66 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>About — Cepheid Visualizer</title>
-  <link rel="stylesheet" href="style.css" />
-  <meta name="description" content="About the author and distribution details for Cepheid Visualizer." />
+  <link rel="stylesheet" href="style.css?v=20250723" />
+  <meta name="description" content="About the author and goals of the Cepheid Visualizer project." />
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
       <h1 class="title">Cepheid Visualizer</h1>
       <nav class="nav">
-        <a class="nav-link" href="index.html">Home</a>
-        <a class="nav-link" href="#files">Downloads</a>
+        <a class="nav-link" href="index.html">Project</a>
+        <a class="nav-link" href="about.html">About</a>
       </nav>
     </div>
   </header>
 
-  <main class="container about-main" style="padding-top:28px">
-    <section class="about-section card" style="display:flex; gap:18px; align-items:flex-start">
+  <main class="container main about-main">
+    <article class="about-section card" style="display:flex; gap:18px; align-items:flex-start; padding:18px;">
       <div style="flex:0 0 220px">
         <img src="assets/Whir.png" alt="Mitsune The Maid" style="width:100%; border-radius:10px; display:block" />
       </div>
 
       <div style="flex:1">
-        <h2>Mitsune The Maid</h2>
-        <p class="lead">Creator of Cepheid Visualizer. I make audio-reactive visuals, shaders and small interactive tools. This export is a standalone application ready to run.</p>
-
-        <h3>Contact & links</h3>
-        <p class="small">
-          Linktree: <a href="https://linktr.ee/mitsune1024" target="_blank" rel="noopener">https://linktr.ee/mitsune1024</a>
+        <h2>Why this project exists</h2>
+        <p>
+          The visualizer connects sound and visual expression in a compact Processing sketch. The project was inspired
+          by analog oscilators. This project aims to capture the aesthetic using screen-space shaders and a set of audio-reactive
+          primitives that are practical for realtime use.
         </p>
 
-        <h3>Distribution</h3>
-        <p class="small">
-          This page hosts the exported application builds. The Processing source is available in the GitHub repository for reference.
-        </p>
-
-        <h3>License</h3>
-        <p class="small">Cepheid Visualizer is released under the MIT license.</p>
-      </div>
-    </section>
-
-    <section id="files" style="margin-top:18px">
-      <div class="card">
-        <h3>Downloads</h3>
+        <h3>Design goals</h3>
         <ul>
-          <li><a href="https://github.com/Mitsune1024/Cepheid-Visualizer/releases/download/v0.9.1001Windows/Cepheid-windows-amd64.rar">Cepheid-windows-amd64.rar (Windows)</a></li>
-          <li><a href="https://github.com/Mitsune1024/Cepheid-Visualizer/releases/download/v0.9.1001Linux/Cepheid-linux-amd64.rar">Cepheid-linux-amd64.rar (Linux)</a></li>
+          <li>Keep the interface simple and immediate for live performance</li>
+          <li>Use GLSL where it helps reduce CPU load and to implement bloom and distortion effects</li>
+          <li>Provide clear, commented code so others can learn and modify it</li>
         </ul>
-        <p class="small">Source code is available on the GitHub repository.</p>
-      </div>
-    </section>
 
-    <footer class="site-footer">
-      <div class="container small">
-        <div>© Mitsune The Maid</div>
-        <div><a href="https://Mitsune1024.github.io/Cepheid-Visualizer" class="nav-link">Project page</a></div>
+        <h2>Who I am</h2>
+        <p>
+          I perform and compose under the name Mitsune The Maid. I make music that blends shoegaze, post-punk and electronic elements.
+          I like to integrate visuals with sound for live shows and recordings. This repository is intended both as a personal tool
+          and as a learning resource for others.
+        </p>
+
+        <h3>Links</h3>
+        <ul>
+          <li>GitHub: <a href="https://github.com/Mitsune1024/Cepheid-Visualizer" target="_blank" rel="noopener">Github</a></li>
+          <li>Project site: <a href="https://Mitsune1024.github.io/Cepheid-Visualizer" target="_blank" rel="noopener">Mitsune1024.github.io</a></li>
+          <li>Music and socials: <a href="https://linktr.ee/mitsune1024" target="_blank" rel="noopener">linktr.ee</a></li>
+        </ul>
+
+        <p class="small">
+          Need help uploading to GitHub or configuring Pages? Ask me or follow the steps in the repository README.
+        </p>
       </div>
-    </footer>
+    </article>
   </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Made by Mitsune The Maid</p>
+    </div>
+  </footer>
 </body>
 </html>
