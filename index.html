@@ -5,23 +5,22 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Cepheid Visualizer — Mitsune The Maid</title>
   <link rel="stylesheet" href="style.css" />
-  <meta name="description" content="Cepheid Visualizer — Standalone audio-reactive visualizer with bloom, trails and multiple modes. Exported app, no Processing install required." />
+  <meta name="description" content="Cepheid Visualizer — Standalone audio-reactive visualizer with bloom, trails and multiple modes. Exported app, no Processing required." />
 
-  <!-- Page-specific styles: background only for index.html and responsive video/image helpers -->
   <style>
-    /* Use the background image only on index.html */
+    /* Page-specific: background (index) and helpers */
     body {
-      /* keep any rules defined in style.css but override the background here */
       background: url("assets/bg.png") no-repeat center center fixed;
       background-size: cover;
       color: #fff;
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
 
-    /* Video container: responsive 16:9 */
     .video-container {
       position: relative;
       width: 100%;
-      padding-bottom: 56.25%; /* 16:9 */
+      padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
       border-radius: 8px;
@@ -36,7 +35,6 @@
       border: 0;
     }
 
-    /* ensure profile preview scales */
     .preview-img {
       width: 100%;
       height: auto;
@@ -44,7 +42,6 @@
       border-radius: 8px;
     }
 
-    /* Slight card backdrop to improve readability on busy backgrounds */
     .card {
       background: rgba(0,0,0,0.45);
       backdrop-filter: blur(4px);
@@ -53,7 +50,6 @@
       box-shadow: 0 6px 18px rgba(0,0,0,0.45);
     }
 
-    /* Make header slightly translucent so nav is readable */
     .site-header {
       background: rgba(0,0,0,0.35);
       backdrop-filter: blur(4px);
@@ -62,28 +58,28 @@
       z-index: 40;
     }
 
-    /* Small responsive tweaks */
     @media (max-width: 860px) {
       .hero { flex-direction: column; }
       .hero-right { margin-top: 12px; }
-      .video-container { padding-bottom: 56.25%; }
     }
   </style>
 </head>
 <body>
   <header class="site-header">
-    <div class="container header-inner">
-      <h1 class="title">Cepheid Visualizer</h1>
-      <nav class="nav">
-        <a class="nav-link" href="about.html" data-i18n="nav_about">About</a>
-        <a class="nav-link" href="#download" data-i18n="nav_download">Download</a>
-        <!-- Language toggle -->
-        <button id="langToggle" class="nav-link" aria-label="Toggle language">ES</button>
+    <div class="container header-inner" style="display:flex;align-items:center;justify-content:space-between;padding:12px;">
+      <div style="display:flex;align-items:center;gap:16px;">
+        <h1 class="title" style="margin:0;font-size:18px;">Cepheid Visualizer</h1>
+      </div>
+      <nav class="nav" style="display:flex;gap:12px;align-items:center;">
+        <a class="nav-link" href="index.html" style="color:#fff;text-decoration:none;">Home</a>
+        <a class="nav-link" href="about.html" style="color:#fff;text-decoration:none;">About</a>
+        <a class="nav-link" href="How.html" style="color:#fff;text-decoration:none;">How it works</a>
+        <button id="langToggle" class="nav-link" aria-label="Toggle language" style="background:transparent;border:0;color:#fff;cursor:pointer;">ES</button>
       </nav>
     </div>
   </header>
 
-  <main class="container main">
+  <main class="container main" style="padding:22px; max-width:1200px; margin:0 auto;">
     <section class="hero" style="display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap;">
       <div class="hero-left" style="flex:1 1 640px; min-width:320px;">
         <div class="card">
@@ -129,11 +125,10 @@
           </div>
 
           <div class="tech" style="margin-top:16px">
-            <a id="download" class="btn primary" href="https://github.com/Mitsune1024/Cepheid-Visualizer/releases/download/v0.9.1001Windows/Cepheid-windows-amd64.rar" data-i18n="dl_windows">Download Windows</a>
-            <a class="btn outline" href="https://github.com/Mitsune1024/Cepheid-Visualizer/releases/download/v0.9.1001Linux/Cepheid-linux-amd64.rar" data-i18n="dl_linux">Download Linux</a>
+            <a id="download" class="btn primary" href="https://github.com/Mitsune1024/Cepheid-Visualizer/releases/download/v0.9.1001Windows/Cepheid-windows-amd64.rar">Download Windows</a>
+            <a class="btn outline" href="https://github.com/Mitsune1024/Cepheid-Visualizer/releases/download/v0.9.1001Linux/Cepheid-linux-amd64.rar">Download Linux</a>
             <p class="caption" style="margin-top:10px" data-i18n="caption_placeholder">Demo / preview.</p>
 
-            <!-- Responsive YouTube embed (starts at 8s) -->
             <div class="video-container" style="margin-top:10px;">
               <iframe
                 src="https://www.youtube-nocookie.com/embed/_iFKAHYc3CA?start=8&rel=0&modestbranding=1&autoplay=1&mute=1&loop=1&playlist=_iFKAHYc3CA"
@@ -167,7 +162,8 @@
           </p>
 
           <div style="margin-top:12px">
-            <a class="btn outline" href="about.html" data-i18n="btn_about">About this project</a>
+            <a class="btn outline" href="about.html">About this project</a>
+            <a class="btn outline" href="How.html" style="margin-left:8px;">How it works</a>
           </div>
         </div>
       </aside>
@@ -188,17 +184,15 @@
     <footer class="site-footer" style="margin-top:24px;">
       <div class="container small" style="display:flex;justify-content:space-between;align-items:center;">
         <div>© Mitsune The Maid</div>
-        <div><a href="https://Mitsune1024.github.io/Cepheid-Visualizer" class="nav-link">Project page</a></div>
+        <div><a href="How.html" class="nav-link">How it works</a> · <a href="about.html" class="nav-link">About</a></div>
       </div>
     </footer>
   </main>
 
   <script>
-    // Translations for simple i18n toggle
+    // lightweight i18n for static text (English default)
     const translations = {
       en: {
-        nav_about: "About",
-        nav_download: "Download",
         hero_sub: "Standalone audio reactive visualizer",
         hero_lead: "A small, exported Processing application with multiple real-time visual modes, bloom and persistence trails. The app uses your microphone input and is ready to run — no Processing or extra libraries needed.",
         meta_features: "Features",
@@ -225,8 +219,6 @@
         license_note: "Licensed under MIT."
       },
       es: {
-        nav_about: "Acerca",
-        nav_download: "Descargas",
         hero_sub: "Visualizador reactivo a audio, standalone",
         hero_lead: "Aplicación exportada desde Processing con modos visuales en tiempo real, bloom y trazos persistentes. El programa usa el micrófono y está listo para ejecutarse — no se necesita instalar Processing ni bibliotecas.",
         meta_features: "Características",
@@ -271,7 +263,6 @@
       });
     }
 
-    // apply default language
     applyLanguage('en');
   </script>
 </body>
