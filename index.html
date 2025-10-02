@@ -3,17 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Cepheid Visualizer — Audio Reactive Visualizer</title>
-  <!-- cache-bust CSS -->
-  <link rel="stylesheet" href="style.css?v=3" />
+  <title>Cepheid Visualizer — Mitsune The Maid</title>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="Cepheid Visualizer — Standalone audio-reactive visualizer with bloom, trails and multiple modes. Exported app, no Processing install required." />
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
       <h1 class="title">Cepheid Visualizer</h1>
       <nav class="nav">
-        <a class="nav-link" href="index.html">Project</a>
-        <a class="nav-link" href="about.html">About</a>
+        <a class="nav-link" href="about.html" data-i18n="nav_about">About</a>
+        <a class="nav-link" href="#download" data-i18n="nav_download">Download</a>
+        <!-- Language toggle -->
+        <button id="langToggle" class="nav-link" aria-label="Toggle language">ES</button>
       </nav>
     </div>
   </header>
@@ -21,136 +23,188 @@
   <main class="container main">
     <section class="hero">
       <div class="hero-left">
-        <h2 class="subtitle">Audio reactive visuals in Processing</h2>
-        <p class="lead">
-          This repository contains a Processing sketch that produces multiple audio-reactive visual modes.
-          Mode 0 is a shader-driven sphere with bloom and audio tinting. Modes 1 through 8 are lightweight
-          CPU/GPU visuals driven by the processing.sound FFT and amplitude envelope. The visuals were designed
-          to be efficient and to run on lower-power hardware after further optimisation.
-        </p>
-
-        <div class="controls">
-          <!-- Auto-detect button -->
-          <a class="btn primary" id="download-auto" href="#" onclick="return false;">Download for your OS</a>
-
-          <!-- Manual direct links to release assets -->
-          <a class="btn primary" id="download-win" href="https://github.com/Mitsune1024/Cepheid-Visualizer/releases/download/v0.2.0910Win/Cephied-windows-amd64.rar" target="_blank" rel="noopener">Download for Windows</a>
-          <a class="btn outline" id="download-linux" href="https://github.com/Mitsune1024/Cepheid-Visualizer/releases/download/v0.2.0910Linux/Cepheid-linux-amd64.rar" target="_blank" rel="noopener">Download for Linux</a>
-
-          <!-- GitHub repo -->
-          <a class="btn outline" id="view-github" href="https://github.com/Mitsune1024/Cepheid-Visualizer" target="_blank" rel="noopener">View on GitHub</a>
-        </div>
-
-        <div class="info-grid">
-          <div>
-            <h4>Quick start</h4>
-            <ol>
-              <li>Download the appropriate package for your OS (Windows or Linux) or clone the repository.</li>
-              <li>Extract the archive and run the executable for your platform. For RAR archives use an extractor that supports RAR.</li>
-              <li>On Linux: after extracting, ensure the executable has permissions, for example <code>chmod +x CepheidVisualizer</code>, then run <code>./CepheidVisualizer</code>.</li>
-              <li>If you prefer to run or edit the source, open the sketch folder in Processing and run there. The sketch uses the processing.sound library.</li>
-            </ol>
-          </div>
-          <div>
-            <h4>Files included</h4>
-            <ul>
-              <li>GenerationsCombined.pde (Processing sketch, main)</li>
-              <li>data/mode0.frag (mode 0 fragment shader)</li>
-              <li>data/glowFrag.glsl (blur / glow shader)</li>
-              <li>data/* (other optional shaders you may include)</li>
-            </ul>
-            <p class="small">Note: the older MiniSphere.pde file was removed and its visuals were consolidated into the main sketch.</p>
-          </div>
-        </div>
-
-        <div class="notes">
-          <strong>Notes</strong>
-          <p>
-            Release asset URLs are linked above. If you upload new release artifacts, update the links in this page or in the script below.
+        <div class="card">
+          <h2 class="subtitle" data-i18n="hero_sub">Standalone audio reactive visualizer</h2>
+          <p class="lead" data-i18n="hero_lead">
+            A small, exported Processing application with multiple real-time visual modes, bloom and persistence trails.
+            The app uses your microphone input and is ready to run — no Processing or extra libraries needed.
           </p>
+
+          <div class="meta">
+            <div class="info-grid">
+              <div>
+                <h4 data-i18n="meta_features">Features</h4>
+                <ul>
+                  <li data-i18n="feat_modes">6 visualization modes (keyboard control)</li>
+                  <li data-i18n="feat_audio">Audio-reactive (FFT spectrum + RMS loudness)</li>
+                  <li data-i18n="feat_bloom">Bloom and smooth trails</li>
+                  <li data-i18n="feat_morph">Dynamic morphing in advanced modes</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 data-i18n="meta_quick">Quick start</h4>
+                <ol>
+                  <li data-i18n="qs_download">Download and run the exported application for your OS (no Processing needed)</li>
+                  <li data-i18n="qs_mic">Allow microphone access if requested — the app is audio-driven</li>
+                  <li data-i18n="qs_modes">Switch visual modes with keys <code>0–5</code></li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="notes small" id="controls">
+              <strong data-i18n="controls_title">Controls</strong>
+              <ul>
+                <li><code>0–5</code> — switch visual mode</li>
+                <li><code>+</code> / <code>-</code> — adjust persistence (trail length)</li>
+                <li><code>B</code> — toggle bloom</li>
+                <li><code>F</code> — toggle FFT processing</li>
+                <li>Arrow keys — rotate camera</li>
+              </ul>
+              <p class="small" data-i18n="controls_note">Note: modes 7 and 8 are not exposed in the public build.</p>
+            </div>
+
+          </div>
+
+          <div class="tech" style="margin-top:16px">
+            <a id="download" class="btn primary" href="https://github.com/Mitsune1024/Cepheid-Visualizer/releases/download/v0.9.1001Windows/Cepheid-windows-amd64.rar" data-i18n="dl_windows">Download Windows</a>
+            <a class="btn outline" href="https://github.com/Mitsune1024/Cepheid-Visualizer/releases/download/v0.9.1001Linux/Cepheid-linux-amd64.rar" data-i18n="dl_linux">Download Linux</a>
+            <p class="caption" style="margin-top:10px" data-i18n="caption_placeholder">Demo / preview: upload a GIF or short MP4 to replace this placeholder.</p>
+            <div class="preview-img card" id="demoPlaceholder" style="height:220px;display:flex;align-items:center;justify-content:center;">
+              <span class="small" data-i18n="demo_placeholder">Demo placeholder — upload a short GIF or MP4</span>
+            </div>
+
+            <div class="small meta" style="margin-top:12px">
+              <strong data-i18n="sysreq_title">Minimum system</strong>
+              <div class="small">
+                <p data-i18n="sysreq_cpu">CPU: Pentium 987 (or similar)</p>
+                <p data-i18n="sysreq_gpu">Graphics: Intel® HD Graphics (Sandy Bridge) or AMD equivalent (e.g. AMD A8/A10 era)</p>
+                <p data-i18n="sysreq_note">Microphone required for audio-reactive visuals.</p>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
 
       <aside class="hero-right">
-        <div class="card preview">
-          <!-- Replace demo.gif with your file in assets/ or change to ss.png if you didn't upload the GIF -->
-          <img src="assets/ss.png" alt="Project screenshot" class="preview-img" />
-          <div class="caption">Animated demo or screenshot. Replace this file with your own GIF or PNG in assets/</div>
-        </div>
+        <div class="card">
+          <img src="Whir.png" alt="Mitsune The Maid" class="preview-img" />
+          <p class="caption small" style="margin-top:10px">
+            <strong data-i18n="credits_title">Made by</strong>
+            <br />
+            Mitsune The Maid — <a href="https://linktr.ee/mitsune1024" class="nav-link" target="_blank" rel="noopener">Linktree</a>
+          </p>
 
-        <div class="card meta">
-          <h4>Controls</h4>
-          <ul>
-            <li>0..8 : switch visual mode (0 is sphere, 1 is cubes, 2 helix, 3 rosette, 4 star, 5 rings, 6 grid stars, 7 ship arms, 8 flower)</li>
-            <li>+ / - : adjust persistence decay (smaller value gives longer trails)</li>
-            <li>Arrow keys : rotate camera and dolly (left/right rotate, up/down change distance)</li>
-            <li>f : toggle FFT processing on or off</li>
-            <li>h : show help in the console</li>
-          </ul>
+          <div style="margin-top:12px">
+            <a class="btn outline" href="about.html" data-i18n="btn_about">About this project</a>
+          </div>
         </div>
       </aside>
     </section>
 
-    <section class="tech">
-      <h3>Technical details</h3>
-      <p>
-        The sketch uses Processing with the processing.sound library and a few GLSL fragment shaders.
-        Most visuals are implemented with simple CPU geometry combined with an accumulation framebuffer
-        to produce glow and trail persistence. The FFT array is mapped to parameter ranges per mode
-        to obtain musical responsiveness.
-      </p>
-
-      <h4>Dependencies</h4>
-      <ul>
-        <li>Processing 3.5 or later (for running the source)</li>
-        <li>processing.sound library</li>
-      </ul>
+    <section style="margin-top:22px">
+      <div class="card">
+        <h3 data-i18n="files_title">Files included</h3>
+        <ul>
+          <li>Windows archive — Cepheid-windows-amd64.rar</li>
+          <li>Linux archive — Cepheid-linux-amd64.rar</li>
+          <li>Source code (available in GitHub repo)</li>
+        </ul>
+        <p class="small" data-i18n="license_note">Licensed under MIT.</p>
+      </div>
     </section>
+
+    <footer class="site-footer">
+      <div class="container small">
+        <div>© Mitsune The Maid</div>
+        <div><a href="https://Mitsune1024.github.io/Cepheid-Visualizer" class="nav-link">Project page</a></div>
+      </div>
+    </footer>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>Made by Mitsune The Maid. Code released under MIT license. Hosted on GitHub Pages.</p>
-    </div>
-  </footer>
-
   <script>
-    // Direct asset URLs (from your releases)
-    const WIN_URL = "https://github.com/Mitsune1024/Cepheid-Visualizer/releases/download/v0.1.1308Win/Cepheid_windows-amd64.rar";
-    const LINUX_URL = "https://github.com/Mitsune1024/Cepheid-Visualizer/releases/download/v0.1.1308Linux/Cepheid_linux-amd64.rar";
-
-    // Simple OS detection
-    function detectOS() {
-      const p = navigator.platform || navigator.userAgent || navigator.appVersion;
-      const pstr = p.toLowerCase();
-      if (pstr.indexOf('win') !== -1) return 'windows';
-      if (pstr.indexOf('linux') !== -1) return 'linux';
-      if (pstr.indexOf('mac') !== -1 || pstr.indexOf('darwin') !== -1 || pstr.indexOf('iphone') !== -1 || pstr.indexOf('ipad') !== -1) return 'mac';
-      return 'unknown';
-    }
-
-    function setAutoDownloadLink() {
-      const os = detectOS();
-      const autoBtn = document.getElementById('download-auto');
-      if (!autoBtn) return;
-
-      if (os === 'windows') {
-        autoBtn.href = WIN_URL;
-        autoBtn.onclick = null;
-        autoBtn.setAttribute('target','_blank');
-      } else if (os === 'linux') {
-        autoBtn.href = LINUX_URL;
-        autoBtn.onclick = null;
-        autoBtn.setAttribute('target','_blank');
-      } else {
-        autoBtn.href = "https://github.com/Mitsune1024/Cepheid-Visualizer";
-        autoBtn.onclick = null;
-        autoBtn.setAttribute('target','_blank');
+    // Simple i18n switch (English default). Toggle button shows the opposite language abbreviation.
+    const translations = {
+      en: {
+        nav_about: "About",
+        nav_download: "Download",
+        hero_sub: "Standalone audio reactive visualizer",
+        hero_lead: "A small, exported Processing application with multiple real-time visual modes, bloom and persistence trails. The app uses your microphone input and is ready to run — no Processing or extra libraries needed.",
+        meta_features: "Features",
+        feat_modes: "6 visualization modes (keyboard control)",
+        feat_audio: "Audio-reactive (FFT spectrum + RMS loudness)",
+        feat_bloom: "Bloom and persistence trails",
+        feat_morph: "Dynamic morphing in advanced modes",
+        meta_quick: "Quick start",
+        qs_download: "Download and run the exported application (no Processing needed)",
+        qs_mic: "Allow microphone access if requested — the app is audio-driven",
+        qs_modes: "Switch visual modes with keys 0–5",
+        controls_title: "Controls",
+        controls_note: "Note: modes 7 and 8 are not exposed in the public build.",
+        dl_windows: "Download Windows",
+        dl_linux: "Download Linux",
+        caption_placeholder: "Demo / preview: upload a GIF or short MP4 to replace this placeholder.",
+        demo_placeholder: "Demo placeholder — upload a short GIF or MP4",
+        sysreq_title: "Minimum system",
+        sysreq_cpu: "CPU: Pentium 987 (or similar)",
+        sysreq_gpu: "Graphics: Intel® HD Graphics (Sandy Bridge) or AMD equivalent (e.g. AMD A8/A10 era)",
+        sysreq_note: "Microphone required for audio-reactive visuals.",
+        credits_title: "Made by",
+        btn_about: "About this project",
+        files_title: "Files included",
+        license_note: "Licensed under MIT."
+      },
+      es: {
+        nav_about: "Acerca",
+        nav_download: "Descargas",
+        hero_sub: "Visualizador reactivo a audio, standalone",
+        hero_lead: "Aplicación exportada desde Processing con modos visuales en tiempo real, bloom y trazos persistentes. El programa usa el micrófono y está listo para ejecutarse — no se necesita instalar Processing ni bibliotecas.",
+        meta_features: "Características",
+        feat_modes: "6 modos visuales (control por teclado)",
+        feat_audio: "Reactivo al audio (FFT y RMS)",
+        feat_bloom: "Bloom y estelas suaves",
+        feat_morph: "Morfado dinámico en modos avanzados",
+        meta_quick: "Inicio rápido",
+        qs_download: "Descarga y ejecuta la aplicación exportada (no necesita Processing)",
+        qs_mic: "Permite el acceso al micrófono si se solicita — la app usa audio en tiempo real",
+        qs_modes: "Cambia modos con las teclas 0–5",
+        controls_title: "Controles",
+        controls_note: "Nota: los modos 7 y 8 no están expuestos en la versión pública.",
+        dl_windows: "Descargar Windows",
+        dl_linux: "Descargar Linux",
+        caption_placeholder: "Demo / vista previa: sube un GIF o MP4 corto para reemplazar este espacio.",
+        demo_placeholder: "Placeholder de demo — sube un GIF o MP4 corto",
+        sysreq_title: "Sistema mínimo",
+        sysreq_cpu: "CPU: Pentium 987 (o similar)",
+        sysreq_gpu: "Gráficos: Intel® HD Graphics (Sandy Bridge) o equivalente AMD (p. ej. A8/A10)",
+        sysreq_note: "Se requiere micrófono para los visuales reactivos al audio.",
+        credits_title: "Creado por",
+        btn_about: "Acerca del proyecto",
+        files_title: "Archivos incluidos",
+        license_note: "Licencia MIT."
       }
+    };
+
+    let current = 'en';
+    const elToggle = document.getElementById('langToggle');
+    elToggle.addEventListener('click', () => {
+      current = current === 'en' ? 'es' : 'en';
+      applyLanguage(current);
+      elToggle.textContent = current === 'en' ? 'ES' : 'EN';
+    });
+
+    function applyLanguage(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
     }
 
-    // Run on load
-    document.addEventListener('DOMContentLoaded', setAutoDownloadLink);
+    // apply default
+    applyLanguage('en');
   </script>
 </body>
 </html>
