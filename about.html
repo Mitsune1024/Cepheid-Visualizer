@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css" />
   <meta name="description" content="About the author and goals of the Cepheid Visualizer project." />
   <style>
+    /* Page-specific styles */
     body {
       background: url("assets/bg2.png") no-repeat center center fixed;
       background-size: cover;
@@ -16,9 +17,9 @@
     }
 
     .page-overlay {
-      background: rgba(0, 0, 0, 0.45);
+      background: rgba(0, 0, 0, 0.50);
       min-height: 100vh;
-      padding: 28px 16px;
+      padding: 24px;
       box-sizing: border-box;
     }
 
@@ -29,10 +30,10 @@
     }
 
     .card {
-      background: rgba(0,0,0,0.55);
+      background: rgba(0,0,0,0.60);
       border-radius: 10px;
       padding: 18px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
       color: #fff;
     }
 
@@ -45,74 +46,82 @@
     }
 
     .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 8px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:10px 12px;
     }
 
     .title {
       margin: 0;
       font-size: 20px;
-      letter-spacing: 0.6px;
+      letter-spacing: 0.4px;
+    }
+
+    nav.nav {
+      display:flex;
+      gap:12px;
+      align-items:center;
     }
 
     nav.nav a, nav.nav button {
       color: #fff;
       text-decoration: none;
-      margin-left: 12px;
-      opacity: 0.95;
-      font-size: 14px;
       background: transparent;
       border: 0;
       cursor: pointer;
+      font-size: 14px;
+      padding: 6px 8px;
     }
 
     .about-main {
-      padding: 28px 0;
+      padding: 22px 0;
     }
 
     .about-section {
-      display: flex;
-      gap: 18px;
-      align-items: flex-start;
+      display:flex;
+      gap:18px;
+      align-items:flex-start;
       padding: 18px;
     }
 
     .about-section img {
       width: 100%;
       height: auto;
-      display: block;
-      border-radius: 10px;
+      display:block;
+      border-radius:8px;
     }
 
-    h2, h3 {
-      color: #fff;
-      margin-top: 0;
+    h2,h3 {
+      margin-top:0;
+      color:#fff;
     }
 
-    .lead {
+    p.lead {
       margin: 0 0 12px 0;
       line-height: 1.5;
-      color: #eaeaea;
+      color: #e9e9e9;
+    }
+
+    ul li {
+      margin-bottom:6px;
+      color: #e7e7e7;
     }
 
     .small {
-      color: #ddd;
-      font-size: 13px;
+      color:#d7d7d7;
+      font-size:13px;
     }
 
     footer.site-footer {
-      margin-top: 28px;
+      margin-top: 24px;
       padding: 18px 0;
       color: #ddd;
     }
 
     @media (max-width: 860px) {
-      .about-section {
-        flex-direction: column;
-      }
+      .about-section { flex-direction: column; }
     }
   </style>
 </head>
@@ -120,28 +129,28 @@
   <div class="page-overlay">
     <header class="site-header">
       <div class="container header-inner">
-        <h1 class="title">Cepheid Visualizer</h1>
-        <nav class="nav">
-          <a class="nav-link" href="index.html" data-i18n="nav_home">Home</a>
-          <a class="nav-link" href="How.html" data-i18n="nav_how">How it works</a>
-          <a class="nav-link" href="about.html" data-i18n="nav_about">About</a>
-          <button id="langToggle" data-i18n="lang_button">ES</button>
+        <div style="display:flex;align-items:center;gap:12px">
+          <h1 class="title">Cepheid Visualizer</h1>
+        </div>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="index.html" data-i18n="nav_home">Home</a>
+          <a href="How.html" data-i18n="nav_how">How it works</a>
+          <a href="about.html" data-i18n="nav_about">About</a>
+          <button id="langToggle" aria-label="Toggle language" data-i18n="lang_button">ES</button>
         </nav>
       </div>
     </header>
 
-    <main class="container main about-main">
-      <article class="about-section card">
-        <div style="flex:0 0 220px">
-          <img src="assets/Whir.png" alt="Mitsune The Maid" />
+    <main class="container about-main">
+      <article class="card about-section" role="article">
+        <div style="flex:0 0 220px; max-width:220px;">
+          <img src="assets/Whir.png" alt="Mitsune The Maid profile" />
         </div>
 
-        <div style="flex:1">
+        <div style="flex:1;">
           <h2 data-i18n="why_title">Why this project exists</h2>
           <p class="lead" data-i18n="why_paragraph">
-            The visualizer connects sound and visual expression in a compact Processing sketch. The project was inspired
-            by analog oscilators. This project aims to capture the aesthetic using screen-space shaders and a set of audio-reactive
-            primitives that are practical for realtime use.
+            The visualizer connects sound and visual expression in a compact Processing sketch. The project was inspired by analog oscilators. This project aims to capture the aesthetic using screen-space shaders and a set of audio-reactive primitives that are practical for realtime use.
           </p>
 
           <h3 data-i18n="design_title">Design goals</h3>
@@ -153,9 +162,7 @@
 
           <h2 data-i18n="who_title">Who I am</h2>
           <p class="lead" data-i18n="who_paragraph">
-            I perform and compose under the name Mitsune The Maid. I make music that blends shoegaze, post-punk and electronic elements.
-            I like to integrate visuals with sound for live shows and recordings. This repository is intended both as a personal tool
-            and as a learning resource for others.
+            I perform and compose under the name Mitsune The Maid. I make music that blends shoegaze, post-punk and electronic elements. I like to integrate visuals with sound for live shows and recordings. This repository is intended both as a personal tool and as a learning resource for others.
           </p>
 
           <h3 data-i18n="links_title">Links</h3>
@@ -176,14 +183,18 @@
       <div class="card" style="background:transparent; box-shadow:none; padding:12px;">
         <div style="display:flex; justify-content:space-between; align-items:center;">
           <div data-i18n="footer_made">Made by Mitsune The Maid</div>
-          <div><a href="index.html" style="color:#dcdcdc;" data-i18n="footer_home">Home</a> · <a href="How.html" style="color:#dcdcdc;" data-i18n="footer_how">How it works</a></div>
+          <div>
+            <a href="index.html" style="color:#dcdcdc; text-decoration:none;" data-i18n="footer_home">Home</a>
+            <span style="color:#dcdcdc; margin: 0 6px;">·</span>
+            <a href="How.html" style="color:#dcdcdc; text-decoration:none;" data-i18n="footer_how">How it works</a>
+          </div>
         </div>
       </div>
     </footer>
   </div>
 
   <script>
-    // translations for About page
+    // Full translations for About page (EN default)
     const translations = {
       en: {
         nav_home: "Home",
@@ -231,12 +242,15 @@
       }
     };
 
+    // language state
     let current = 'en';
-    const elToggle = document.getElementById('langToggle');
-    elToggle.addEventListener('click', () => {
+    const btn = document.getElementById('langToggle');
+
+    btn.addEventListener('click', () => {
       current = current === 'en' ? 'es' : 'en';
       applyLanguage(current);
-      elToggle.textContent = current === 'en' ? 'ES' : 'EN';
+      // update button label to indicate the language to switch to
+      btn.textContent = current === 'en' ? 'ES' : 'EN';
     });
 
     function applyLanguage(lang) {
@@ -249,7 +263,7 @@
     }
 
     // apply default language
-    applyLanguage('en');
+    applyLanguage(current);
   </script>
 </body>
 </html>
