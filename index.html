@@ -6,8 +6,18 @@
   <title>Cepheid Visualizer — Mitsune The Maid</title>
   <link rel="stylesheet" href="style.css" />
   <meta name="description" content="Cepheid Visualizer — Standalone audio-reactive visualizer with bloom, trails and multiple modes. Exported app, no Processing install required." />
+
+  <!-- Page-specific styles: background only for index.html and responsive video/image helpers -->
   <style>
-    /* Small helpers to ensure video and profile image are responsive even without editing style.css */
+    /* Use the background image only on index.html */
+    body {
+      /* keep any rules defined in style.css but override the background here */
+      background: url("assets/bg.png") no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+    }
+
+    /* Video container: responsive 16:9 */
     .video-container {
       position: relative;
       width: 100%;
@@ -15,6 +25,7 @@
       height: 0;
       overflow: hidden;
       border-radius: 8px;
+      background: rgba(0,0,0,0.15);
     }
     .video-container iframe {
       position: absolute;
@@ -24,12 +35,38 @@
       height: 100%;
       border: 0;
     }
+
     /* ensure profile preview scales */
     .preview-img {
       width: 100%;
       height: auto;
       display: block;
       border-radius: 8px;
+    }
+
+    /* Slight card backdrop to improve readability on busy backgrounds */
+    .card {
+      background: rgba(0,0,0,0.45);
+      backdrop-filter: blur(4px);
+      border-radius: 10px;
+      padding: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+    }
+
+    /* Make header slightly translucent so nav is readable */
+    .site-header {
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(4px);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    /* Small responsive tweaks */
+    @media (max-width: 860px) {
+      .hero { flex-direction: column; }
+      .hero-right { margin-top: 12px; }
+      .video-container { padding-bottom: 56.25%; }
     }
   </style>
 </head>
@@ -40,14 +77,15 @@
       <nav class="nav">
         <a class="nav-link" href="about.html" data-i18n="nav_about">About</a>
         <a class="nav-link" href="#download" data-i18n="nav_download">Download</a>
+        <!-- Language toggle -->
         <button id="langToggle" class="nav-link" aria-label="Toggle language">ES</button>
       </nav>
     </div>
   </header>
 
   <main class="container main">
-    <section class="hero">
-      <div class="hero-left">
+    <section class="hero" style="display:flex; gap:18px; align-items:flex-start; flex-wrap:wrap;">
+      <div class="hero-left" style="flex:1 1 640px; min-width:320px;">
         <div class="card">
           <h2 class="subtitle" data-i18n="hero_sub">Standalone audio reactive visualizer</h2>
           <p class="lead" data-i18n="hero_lead">
@@ -56,8 +94,8 @@
           </p>
 
           <div class="meta">
-            <div class="info-grid">
-              <div>
+            <div class="info-grid" style="display:flex; gap:18px; flex-wrap:wrap;">
+              <div style="flex:1 1 260px;">
                 <h4 data-i18n="meta_features">Features</h4>
                 <ul>
                   <li data-i18n="feat_modes">6 visualization modes (keyboard control)</li>
@@ -67,7 +105,7 @@
                 </ul>
               </div>
 
-              <div>
+              <div style="flex:1 1 240px;">
                 <h4 data-i18n="meta_quick">Quick start</h4>
                 <ol>
                   <li data-i18n="qs_download">Download and run the exported application (no Processing needed)</li>
@@ -77,7 +115,7 @@
               </div>
             </div>
 
-            <div class="notes small" id="controls">
+            <div class="notes small" id="controls" style="margin-top:8px;">
               <strong data-i18n="controls_title">Controls</strong>
               <ul>
                 <li><code>0–5</code> — switch visual mode</li>
@@ -88,7 +126,6 @@
               </ul>
               <p class="small" data-i18n="controls_note">Note: modes 7 and 8 are not exposed in the public build.</p>
             </div>
-
           </div>
 
           <div class="tech" style="margin-top:16px">
@@ -120,7 +157,7 @@
         </div>
       </div>
 
-      <aside class="hero-right">
+      <aside class="hero-right" style="flex:0 0 320px; min-width:240px;">
         <div class="card">
           <img src="assets/Whir.png" alt="Mitsune The Maid" class="preview-img" />
           <p class="caption small" style="margin-top:10px">
@@ -148,8 +185,8 @@
       </div>
     </section>
 
-    <footer class="site-footer">
-      <div class="container small">
+    <footer class="site-footer" style="margin-top:24px;">
+      <div class="container small" style="display:flex;justify-content:space-between;align-items:center;">
         <div>© Mitsune The Maid</div>
         <div><a href="https://Mitsune1024.github.io/Cepheid-Visualizer" class="nav-link">Project page</a></div>
       </div>
@@ -157,6 +194,7 @@
   </main>
 
   <script>
+    // Translations for simple i18n toggle
     const translations = {
       en: {
         nav_about: "About",
@@ -233,6 +271,7 @@
       });
     }
 
+    // apply default language
     applyLanguage('en');
   </script>
 </body>
