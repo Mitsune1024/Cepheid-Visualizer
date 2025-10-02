@@ -58,12 +58,15 @@
       letter-spacing: 0.6px;
     }
 
-    nav.nav a {
+    nav.nav a, nav.nav button {
       color: #fff;
       text-decoration: none;
       margin-left: 12px;
       opacity: 0.95;
       font-size: 14px;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
     }
 
     h1,h2,h3 {
@@ -94,154 +97,90 @@
   <div class="page-overlay">
     <header class="site-header">
       <div class="container header-inner">
-        <h1 class="title">How it works</h1>
+        <h1 class="title" data-i18n="page_title">How it works</h1>
         <nav class="nav">
-          <a class="nav-link" href="index.html">Home</a>
-          <a class="nav-link" href="about.html">About</a>
-          <a class="nav-link" href="How.html">How it works</a>
+          <a class="nav-link" href="index.html" data-i18n="nav_home">Home</a>
+          <a class="nav-link" href="about.html" data-i18n="nav_about">About</a>
+          <a class="nav-link" href="How.html" data-i18n="nav_how">How it works</a>
+          <button id="langToggle" data-i18n="lang_button">ES</button>
         </nav>
       </div>
     </header>
 
     <main class="container" style="padding-top:18px;">
       <article class="card content">
-        <h2>Overview</h2>
-        <p>
+        <h2 data-i18n="overview_title">Overview</h2>
+        <p data-i18n="overview_paragraph">
           Cepheid Visualizer is a Processing-based real-time audio visualizer that composes several modes into a single
           accumulation-based rendering pipeline. The design emphasizes a lightweight architecture that yields glow effects,
           smooth trailing, and audio-reactive motion while remaining straightforward to tune and extend.
         </p>
 
         <div class="section">
-          <h3>Rendering layers</h3>
-          <p>
+          <h3 data-i18n="rendering_title">Rendering layers</h3>
+          <p data-i18n="rendering_paragraph">
             Rendering is organized around three main layers. First, there is the 3D accumulation buffer (a PGraphics in P3D,
-            referred to as <code>layerFbo</code>) which stores the last frame's pixels and receives a translucent black rectangle
-            each frame to produce the fade effect. Second, a screen-space overlay (<code>overlay2D</code>, P2D) is used to render
-            rosettes, stars and other 2D primitives; these are often composited onto <code>layerFbo</code> with additive blending.
+            referred to as layerFbo) which stores the last frame's pixels and receives a translucent black rectangle
+            each frame to produce the fade effect. Second, a screen-space overlay (overlay2D, P2D) is used to render
+            rosettes, stars and other 2D primitives; these are often composited onto layerFbo with additive blending.
             Third, the bloom pass (optional) applies a fullscreen shader to a copy of the accumulation buffer and is drawn additively
             on top of the final composition.
           </p>
         </div>
 
         <div class="section">
-          <h3>Audio input and analysis</h3>
-          <p>
+          <h3 data-i18n="audio_title">Audio input and analysis</h3>
+          <p data-i18n="audio_paragraph">
             The sketch uses the Processing sound library. Two time-varying measures drive the visuals:
           </p>
           <ul>
-            <li><strong>RMS level</strong> from an <code>Amplitude</code> analyzer provides a global loudness value that affects
-            intensity and global scaling.</li>
-            <li><strong>FFT bands</strong> from an <code>FFT</code> analyzer populate a spectrum array. A small helper function
-            (<code>fftNorm(index, scale)</code>) samples a band, scales and clamps it to [0,1], allowing modes to read per-band energy
-            easily.</li>
+            <li data-i18n="audio_item1"><strong>RMS level</strong> from an Amplitude analyzer provides a global loudness value that affects intensity and global scaling.</li>
+            <li data-i18n="audio_item2"><strong>FFT bands</strong> from an FFT analyzer populate a spectrum array. A small helper function (fftNorm(index, scale)) samples a band, scales and clamps it to [0,1], allowing modes to read per-band energy easily.</li>
           </ul>
         </div>
 
         <div class="section">
-          <h3>Mode structure</h3>
-          <p>
-            Each visualization mode is implemented as a dedicated function. Modes either draw straight into <code>layerFbo</code>
-            (so they automatically get trails), or they render into <code>overlay2D</code> which is then composited onto the FBO.
-            Modes scale their geometry based on the canvas size using <code>min(width,height)</code> so the visuals adapt to different
+          <h3 data-i18n="modes_title">Mode structure</h3>
+          <p data-i18n="modes_paragraph">
+            Each visualization mode is implemented as a dedicated function. Modes either draw straight into layerFbo
+            (so they automatically get trails), or they render into overlay2D which is then composited onto the FBO.
+            Modes scale their geometry based on the canvas size using min(width,height) so the visuals adapt to different
             resolutions and full-screen sizes.
           </p>
-          <p>
+          <p data-i18n="modes_examples">
             Examples of implemented modes:
           </p>
           <ul>
-            <li><strong>Shader-sphere</strong>: a fragment shader rendered to <code>overlay2D</code>, taking uniforms (time, resolution,
-            audioLevel) so it reacts to sound and time.</li>
-            <li><strong>Grid of cubes</strong>: wireframe cubes arranged in a grid with rotation driven by FFT bands.</li>
-            <li><strong>Helix</strong>: a spiral of point-like boxes with a central cube to fill the visual center.</li>
-            <li><strong>Ship arms</strong>: an advanced mode that morphs smoothly between multiple parametric formulas using a smoothed
-            morph parameter; audio energy controls the morph intensity.</li>
+            <li data-i18n="modes_example1"><strong>Shader-sphere</strong>: a fragment shader rendered to overlay2D, taking uniforms (time, resolution, audioLevel) so it reacts to sound and time.</li>
+            <li data-i18n="modes_example2"><strong>Grid of cubes</strong>: wireframe cubes arranged in a grid with rotation driven by FFT bands.</li>
+            <li data-i18n="modes_example3"><strong>Helix</strong>: a spiral of point-like boxes with a central cube to fill the visual center.</li>
+            <li data-i18n="modes_example4"><strong>Ship arms</strong>: an advanced mode that morphs smoothly between multiple parametric formulas using a smoothed morph parameter; audio energy controls the morph intensity.</li>
           </ul>
         </div>
 
         <div class="section">
-          <h3>The trails / fade effect</h3>
-          <p>
+          <h3 data-i18n="trails_title">The trails / fade effect</h3>
+          <p data-i18n="trails_paragraph">
             Trails are produced by drawing a translucent rectangle over the accumulation buffer every frame. The rectangle's alpha
-            is a small number called <code>decayAlpha</code>. A lower <code>decayAlpha</code> means the buffer fades more slowly,
-            so trails last longer. If a mode or the code explicitly clears the buffer each frame the trails disappear; the code
-            deliberately avoids that except when switching modes to clear artifacts.
+            is a small number called decayAlpha. A lower decayAlpha means the buffer fades more slowly, so trails last longer.
+            If a mode or the code explicitly clears the buffer each frame the trails disappear; the code deliberately avoids that except when switching modes to clear artifacts.
           </p>
         </div>
 
         <div class="section">
-          <h3>Shaders and integration</h3>
-          <p>
-            GLSL shaders (in the sketch <code>data/</code> folder) are loaded with <code>loadShader()</code> and receive uniforms such
-            as resolution and time. The shader rendering follows the pattern:
+          <h3 data-i18n="shaders_title">Shaders and integration</h3>
+          <p data-i18n="shaders_paragraph">
+            GLSL shaders (in the sketch data/ folder) are loaded with loadShader() and receive uniforms such as resolution and time. The shader rendering follows the pattern:
           </p>
           <ol>
-            <li>set uniforms (time, resolution, audioLevel...)</li>
-            <li>activate shader on the target PGraphics</li>
-            <li>draw a full-viewport rect to run the fragment shader per pixel</li>
-            <li>reset the shader</li>
+            <li data-i18n="shaders_step1">set uniforms (time, resolution, audioLevel...)</li>
+            <li data-i18n="shaders_step2">activate shader on the target PGraphics</li>
+            <li data-i18n="shaders_step3">draw a full-viewport rect to run the fragment shader per pixel</li>
+            <li data-i18n="shaders_step4">reset the shader</li>
           </ol>
-          <p>
+          <p data-i18n="shaders_note">
             The bloom shader is optional and is applied to a copy of the accumulation buffer before compositing with additive blending.
           </p>
         </div>
 
         <div class="section">
-          <h3>Mode morphing and triggers</h3>
-          <p>
-            Mode 6 contains a morph target that smoothly interpolates between different formulas. A threshold based on RMS and a
-            low-frequency band advances the morph target when crossed; this is implemented with hysteresis so it does not flip repeatedly.
-            The morph itself is smoothed using an exponential lerp controlled by <code>morphTau</code>.
-          </p>
-        </div>
-
-        <div class="section">
-          <h3>Responsiveness and resizing</h3>
-          <p>
-            The sketch recreates its PGraphics buffers when the window changes size. The function <code>ensureBuffers()</code> checks
-            the current width and height and calls <code>createGraphics(width,height,P3D)</code> as needed. Modes compute sizes from
-            canvas dimensions so graphics scale when the sketch is run fullscreen.
-          </p>
-        </div>
-
-        <div class="section">
-          <h3>Performance tips</h3>
-          <ul>
-            <li>Lower <code>fftBands</code> (e.g. 64 or 128) on constrained hardware like Raspberry Pi 3.</li>
-            <li>Disable bloom or use a cheaper blur kernel — bloom is the heaviest shader pass.</li>
-            <li>Render accumulation at a reduced resolution (half-size) and scale up to save GPU/CPU.</li>
-            <li>Simplify parametric formulas or reduce vertex counts in heavy modes (helix, ship arms).</li>
-          </ul>
-        </div>
-
-        <div class="section">
-          <h3>Troubleshooting checklist</h3>
-          <ul>
-            <li>If the screen is black, verify <code>layerFbo</code> is created and not cleared each frame.</li>
-            <li>Check console logs for shader compile errors or missing shader files.</li>
-            <li>Confirm microphone permissions and that <code>amp.analyze()</code> returns values.</li>
-            <li>If trails don't appear, ensure that the translucent fade rectangle remains the only per-frame clearing step.</li>
-          </ul>
-        </div>
-
-        <div class="section small">
-          <p>
-            If you want, I can prepare a Pi 3 optimized branch (reduced FFT bands, disabled bloom, half-resolution buffers)
-            or add a small runtime profiler overlay that shows per-frame GPU/CPU timings. Tell me which you'd prefer and I will
-            prepare the changes.
-          </p>
-        </div>
-      </article>
-    </main>
-
-    <footer class="site-footer container" style="padding-top:18px;">
-      <div class="card" style="background:transparent;box-shadow:none;padding:12px;">
-        <div style="display:flex;justify-content:space-between;align-items:center;">
-          <div>© Mitsune The Maid</div>
-          <div><a href="index.html" style="color:#dcdcdc;">Home</a> · <a href="about.html" style="color:#dcdcdc;">About</a></div>
-        </div>
-      </div>
-    </footer>
-  </div>
-</body>
-</html>
