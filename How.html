@@ -184,3 +184,185 @@
         </div>
 
         <div class="section">
+          <h3 data-i18n="morph_title">Mode morphing and triggers</h3>
+          <p data-i18n="morph_paragraph">
+            Mode 6 contains a morph target that smoothly interpolates between different formulas. A threshold based on RMS and a
+            low-frequency band advances the morph target when crossed; this is implemented with hysteresis so it does not flip repeatedly.
+            The morph itself is smoothed using an exponential lerp controlled by morphTau.
+          </p>
+        </div>
+
+        <div class="section">
+          <h3 data-i18n="responsive_title">Responsiveness and resizing</h3>
+          <p data-i18n="responsive_paragraph">
+            The sketch recreates its PGraphics buffers when the window changes size. The function ensureBuffers() checks
+            the current width and height and calls createGraphics(width,height,P3D) as needed. Modes compute sizes from
+            canvas dimensions so graphics scale when the sketch is run fullscreen.
+          </p>
+        </div>
+
+        <div class="section">
+          <h3 data-i18n="perf_title">Performance tips</h3>
+          <ul>
+            <li data-i18n="perf_item1">Lower fftBands (e.g. 64 or 128) on constrained hardware like Raspberry Pi 3.</li>
+            <li data-i18n="perf_item2">Disable bloom or use a cheaper blur kernel — bloom is the heaviest shader pass.</li>
+            <li data-i18n="perf_item3">Render accumulation at a reduced resolution (half-size) and scale up to save GPU/CPU.</li>
+            <li data-i18n="perf_item4">Simplify parametric formulas or reduce vertex counts in heavy modes (helix, ship arms).</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h3 data-i18n="troubles_title">Troubleshooting checklist</h3>
+          <ul>
+            <li data-i18n="troubles_item1">If the screen is black, verify layerFbo is created and not cleared each frame.</li>
+            <li data-i18n="troubles_item2">Check console logs for shader compile errors or missing shader files.</li>
+            <li data-i18n="troubles_item3">Confirm microphone permissions and that amp.analyze() returns values.</li>
+            <li data-i18n="troubles_item4">If trails don't appear, ensure that the translucent fade rectangle remains the only per-frame clearing step.</li>
+          </ul>
+        </div>
+
+        <div class="section small">
+          <p data-i18n="closing_paragraph">
+            If you want, I can prepare a Pi 3 optimized branch (reduced FFT bands, disabled bloom, half-resolution buffers)
+            or add a small runtime profiler overlay that shows per-frame GPU/CPU timings. Tell me which you'd prefer and I will
+            prepare the changes.
+          </p>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer container" style="padding-top:18px;">
+      <div class="card" style="background:transparent;box-shadow:none;padding:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div data-i18n="footer_copyright">© Mitsune The Maid</div>
+          <div><a href="index.html" style="color:#dcdcdc;" data-i18n="footer_home">Home</a> · <a href="about.html" style="color:#dcdcdc;" data-i18n="footer_about">About</a></div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // translations for How page
+    const translations = {
+      en: {
+        page_title: "How it works",
+        nav_home: "Home",
+        nav_about: "About",
+        nav_how: "How it works",
+        lang_button: "ES",
+        overview_title: "Overview",
+        overview_paragraph: "Cepheid Visualizer is a Processing-based real-time audio visualizer that composes several modes into a single accumulation-based rendering pipeline. The design emphasizes a lightweight architecture that yields glow effects, smooth trailing, and audio-reactive motion while remaining straightforward to tune and extend.",
+        rendering_title: "Rendering layers",
+        rendering_paragraph: "Rendering is organized around three main layers. First, there is the 3D accumulation buffer (a PGraphics in P3D, referred to as layerFbo) which stores the last frame's pixels and receives a translucent black rectangle each frame to produce the fade effect. Second, a screen-space overlay (overlay2D, P2D) is used to render rosettes, stars and other 2D primitives; these are often composited onto layerFbo with additive blending. Third, the bloom pass (optional) applies a fullscreen shader to a copy of the accumulation buffer and is drawn additively on top of the final composition.",
+        audio_title: "Audio input and analysis",
+        audio_paragraph: "The sketch uses the Processing sound library. Two time-varying measures drive the visuals:",
+        audio_item1: "RMS level",
+        audio_item2: "FFT bands",
+        modes_title: "Mode structure",
+        modes_paragraph: "Each visualization mode is implemented as a dedicated function. Modes either draw straight into layerFbo (so they automatically get trails), or they render into overlay2D which is then composited onto the FBO. Modes scale their geometry based on the canvas size using min(width,height) so the visuals adapt to different resolutions and full-screen sizes.",
+        modes_examples: "Examples of implemented modes:",
+        modes_example1: "Shader-sphere",
+        modes_example2: "Grid of cubes",
+        modes_example3: "Helix",
+        modes_example4: "Ship arms",
+        trails_title: "The trails / fade effect",
+        trails_paragraph: "Trails are produced by drawing a translucent rectangle over the accumulation buffer every frame. The rectangle's alpha is a small number called decayAlpha. A lower decayAlpha means the buffer fades more slowly, so trails last longer. If a mode or the code explicitly clears the buffer each frame the trails disappear; the code deliberately avoids that except when switching modes to clear artifacts.",
+        shaders_title: "Shaders and integration",
+        shaders_paragraph: "GLSL shaders (in the sketch data/ folder) are loaded with loadShader() and receive uniforms such as resolution and time. The shader rendering follows the pattern:",
+        shaders_step1: "set uniforms (time, resolution, audioLevel...)",
+        shaders_step2: "activate shader on the target PGraphics",
+        shaders_step3: "draw a full-viewport rect to run the fragment shader per pixel",
+        shaders_step4: "reset the shader",
+        shaders_note: "The bloom shader is optional and is applied to a copy of the accumulation buffer before compositing with additive blending.",
+        morph_title: "Mode morphing and triggers",
+        morph_paragraph: "Mode 6 contains a morph target that smoothly interpolates between different formulas. A threshold based on RMS and a low-frequency band advances the morph target when crossed; this is implemented with hysteresis so it does not flip repeatedly. The morph itself is smoothed using an exponential lerp controlled by morphTau.",
+        responsive_title: "Responsiveness and resizing",
+        responsive_paragraph: "The sketch recreates its PGraphics buffers when the window changes size. The function ensureBuffers() checks the current width and height and calls createGraphics(width,height,P3D) as needed. Modes compute sizes from canvas dimensions so graphics scale when the sketch is run fullscreen.",
+        perf_title: "Performance tips",
+        perf_item1: "Lower fftBands (e.g. 64 or 128) on constrained hardware like Raspberry Pi 3.",
+        perf_item2: "Disable bloom or use a cheaper blur kernel — bloom is the heaviest shader pass.",
+        perf_item3: "Render accumulation at a reduced resolution (half-size) and scale up to save GPU/CPU.",
+        perf_item4: "Simplify parametric formulas or reduce vertex counts in heavy modes (helix, ship arms).",
+        troubles_title: "Troubleshooting checklist",
+        troubles_item1: "If the screen is black, verify layerFbo is created and not cleared each frame.",
+        troubles_item2: "Check console logs for shader compile errors or missing shader files.",
+        troubles_item3: "Confirm microphone permissions and that amp.analyze() returns values.",
+        troubles_item4: "If trails don't appear, ensure that the translucent fade rectangle remains the only per-frame clearing step.",
+        closing_paragraph: "If you want, I can prepare a Pi 3 optimized branch (reduced FFT bands, disabled bloom, half-resolution buffers) or add a small runtime profiler overlay that shows per-frame GPU/CPU timings. Tell me which you'd prefer and I will prepare the changes.",
+        footer_home: "Home",
+        footer_about: "About",
+        footer_copyright: "© Mitsune The Maid"
+      },
+      es: {
+        page_title: "Cómo funciona",
+        nav_home: "Inicio",
+        nav_about: "Acerca",
+        nav_how: "Cómo funciona",
+        lang_button: "EN",
+        overview_title: "Resumen",
+        overview_paragraph: "Cepheid Visualizer es un visualizador de audio en tiempo real basado en Processing que combina varios modos en una única canalización de render con acumulación. El diseño enfatiza una arquitectura ligera que produce efectos de brillo, estelas suaves y movimiento reactivo al audio, al mismo tiempo que es fácil de ajustar y extender.",
+        rendering_title: "Capas de render",
+        rendering_paragraph: "El render se organiza en torno a tres capas principales. Primero, existe el buffer de acumulación 3D (un PGraphics en P3D, referido como layerFbo) que almacena los píxeles del último fotograma y recibe un rectángulo negro translúcido cada frame para producir el efecto de desvanecimiento. Segundo, un overlay en espacio de pantalla (overlay2D, P2D) se usa para renderizar rosetones, estrellas y otras primitivas 2D; a menudo se compone sobre layerFbo con blending aditivo. Tercero, la pasada de bloom (opcional) aplica un shader fullscreen a una copia del buffer de acumulación y se dibuja aditivamente sobre la composición final.",
+        audio_title: "Entrada de audio y análisis",
+        audio_paragraph: "El sketch usa la librería sound de Processing. Dos medidas temporales impulsan los visuales:",
+        audio_item1: "Nivel RMS",
+        audio_item2: "Bandas FFT",
+        modes_title: "Estructura de modos",
+        modes_paragraph: "Cada modo de visualización se implementa como una función dedicada. Los modos dibujan directamente en layerFbo (por lo que automáticamente obtienen estelas), o renderizan en overlay2D que luego se compone sobre el FBO. Los modos escalan su geometría según el tamaño del lienzo usando min(width,height) para que los visuales se adapten a distintas resoluciones y pantallas completas.",
+        modes_examples: "Ejemplos de modos implementados:",
+        modes_example1: "Shader-esfera",
+        modes_example2: "Rejilla de cubos",
+        modes_example3: "Hélice",
+        modes_example4: "Brazos de nave",
+        trails_title: "Efecto de estelas y desvanecimiento",
+        trails_paragraph: "Las estelas se producen dibujando un rectángulo translúcido sobre el buffer de acumulación en cada frame. La alpha del rectángulo es un número pequeño llamado decayAlpha. Un decayAlpha más bajo hace que el buffer se desvanezca más despacio, por lo que las estelas duran más. Si un modo o el código limpia explícitamente el buffer cada frame, las estelas desaparecen; el código evita eso salvo cuando se cambia de modo para eliminar artefactos.",
+        shaders_title: "Shaders e integración",
+        shaders_paragraph: "Los shaders GLSL (en la carpeta data/ del sketch) se cargan con loadShader() y reciben uniforms como resolución y tiempo. El render con shader sigue este patrón:",
+        shaders_step1: "establecer uniforms (time, resolution, audioLevel...)",
+        shaders_step2: "activar el shader en el PGraphics objetivo",
+        shaders_step3: "dibujar un rect full-viewport para ejecutar el fragment shader por píxel",
+        shaders_step4: "resetear el shader",
+        shaders_note: "El shader de bloom es opcional y se aplica a una copia del buffer de acumulación antes de componer con blending aditivo.",
+        morph_title: "Morphing de modos y disparadores",
+        morph_paragraph: "El modo 6 contiene un objetivo de morph que interpola suavemente entre distintas fórmulas. Un umbral basado en RMS y una banda de baja frecuencia avanza el objetivo de morph cuando se cruza; esto se implementa con histéresis para que no oscile repetidamente. El morph se suaviza usando un lerp exponencial controlado por morphTau.",
+        responsive_title: "Responsividad y cambio de tamaño",
+        responsive_paragraph: "El sketch recrea sus PGraphics cuando la ventana cambia de tamaño. La función ensureBuffers() comprueba el ancho y alto actuales y llama a createGraphics(width,height,P3D) según sea necesario. Los modos calculan tamaños a partir de las dimensiones del lienzo para que los gráficos escalen en pantalla completa.",
+        perf_title: "Consejos de rendimiento",
+        perf_item1: "Bajar fftBands (por ejemplo 64 o 128) en hardware limitado como Raspberry Pi 3.",
+        perf_item2: "Desactivar bloom o usar un kernel de blur más barato; bloom es la pasada de shader más pesada.",
+        perf_item3: "Renderizar la acumulación a una resolución reducida (mitad) y escalar para ahorrar GPU/CPU.",
+        perf_item4: "Simplificar fórmulas paramétricas o reducir el conteo de vértices en modos pesados (hélice, brazos de nave).",
+        troubles_title: "Lista de comprobación para errores",
+        troubles_item1: "Si la pantalla está negra, verifica que layerFbo se haya creado y que no se limpie cada frame.",
+        troubles_item2: "Revisa los logs de la consola por errores de compilación de shaders o archivos de shader faltantes.",
+        troubles_item3: "Confirma permisos de micrófono y que amp.analyze() devuelva valores.",
+        troubles_item4: "Si las estelas no aparecen, asegúrate de que el rectángulo translúcido sea el único paso de limpieza por frame.",
+        closing_paragraph: "Si quieres, puedo preparar una rama optimizada para Pi 3 (fftBands reducidas, bloom desactivado, buffers a media resolución) o añadir un pequeño overlay perfilador que muestre tiempos por frame GPU/CPU. Dime cuál prefieres y preparo los cambios.",
+        footer_home: "Inicio",
+        footer_about: "Acerca",
+        footer_copyright: "© Mitsune The Maid"
+      }
+    };
+
+    let current = 'en';
+    const elToggle = document.getElementById('langToggle');
+    elToggle.addEventListener('click', () => {
+      current = current === 'en' ? 'es' : 'en';
+      applyLanguage(current);
+      elToggle.textContent = current === 'en' ? 'ES' : 'EN';
+    });
+
+    function applyLanguage(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+    }
+
+    // set default language
+    applyLanguage('en');
+  </script>
+</body>
+</html>
