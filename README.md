@@ -4,7 +4,7 @@ Standalone interactive audio visualizer with multiple real-time modes, bloom eff
 
 Features
 
-6 visualization modes
+8 visualization modes
 
 Audio-reactive: responds in real time to FFT spectrum and RMS loudness
 
@@ -14,22 +14,18 @@ Dynamic morphing formulas in advanced modes (e.g. morphing arms in Mode 6)
 
 Quick start
 
-Download and run the exported application (no Processing or extra libraries required)
+Download and uncompress the .zip
 
 The program automatically uses your microphone input
 
-Switch between visual modes using keys 0–6
+Switch between visual modes using keys 0–7
 
 
 Extra controls:
 
 + / - adjust persistence (trail length)
 
-B toggle bloom
-
-F toggle FFT
-
-Arrow keys rotate camera
+H to open and close the menu
 
 Website
 
